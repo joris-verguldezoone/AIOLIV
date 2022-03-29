@@ -27,8 +27,7 @@ time.sleep(2)
 # time for cookie
 test = []
 r_price = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[3]/span[1]')
-r_model = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[2]/div[1]/a/h2')  
-r_link = driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div[1]/div/div[4]/a').get_attribute('href')
+r_model = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[2]/div[1]/a/h2') 
 
 allResult = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div')
 allLinkResult = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[4]/a')
@@ -49,22 +48,8 @@ for i in range(len(allResult)):
 
 for ll in test: 
     print(ll)
-# for r in r_price:
-#     print(r.text)
-
-#     for model in r_model: # title product
-#         print(model.text)
-
-# result_len = len(allResult)
-# allLinkResult_len = len(allLinkResult)
-# allState_len = len(allState)
 
    
-   
-
-# data_set = {""}
-# json_dump = json.dumps(data_set)
-# print(json_dump)
 
 
 
