@@ -48,4 +48,3 @@ results = driver.find_element(By.XPATH, '//*[@id="activeOffer"]/div[2]/div[3]/as
 
 print(results)
 # driver.quit()   
-
