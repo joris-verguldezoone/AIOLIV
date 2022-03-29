@@ -1,9 +1,16 @@
+# il manque la partie "voir plus" pour la selection des produits (seulement les premiers produit de la page)
+
+
+
+
+
 # scrapping
-# from datetime import datetime, date, timedelta
+
+
+
 import time
-# import validators
-# import re
-# import pandas as pd
+import json
+
 
 # pip install selenium 
 # Web Driver module
@@ -13,14 +20,11 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import Remote
 from selenium.webdriver import  DesiredCapabilities
 from selenium.webdriver.remote import webelement , command
-# from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.common.touch_actions import TouchActions
-# from selenium.common.exceptions import NoSuchElementException
 
 
 
-driver_location = "C:\\Users\\vergu\\Desktop\\chromeDriver\\chromedriver.exe"
-binary_location = "C:\\Program Files (x86)\\Google\Chrome\\Application\\chrome.exe"
+driver_location = "C:\\Users\\Frede\\OneDrive\\Bureau\\les repositorys\\AIOLIV\\chromedriver.exe"
+binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 
 option = webdriver.ChromeOptions()
 option.binary_location = binary_location
@@ -28,24 +32,53 @@ option.binary_location = binary_location
 
 driver = webdriver.Chrome(executable_path=driver_location)
 
-driver.get('https://www.ldlc.com/fiche/PB00479994.html')
-# driver.get('https://www.amazon.com/')
-# accepter des cookies eyJpZCI6ImYyYjI3MjU0LTMwZWYtNTcxZi1iMjBmLTA1OGM0OWMzOGQ2YiIsImNyZWF0ZWQiOjE2NDg1MDU4NDkxNTIsImV4aXN0aW5nIjp0cnVlfQ
-# results = driver.find_elements_by_class_name("sbloc")
-time.sleep(2)
-# add cookie for scrappe anyone profile account
-driver.add_cookie({"name": "_hjSession_445258", "value": "eyJpZCI6ImU1ZmJmNjQ0LTUzOTctNDBmZi04N2VlLWFiMmJkZGIwMWNjYiIsImNyZWF0ZWQiOjE2NDg1MDU4NDkyNjUsImluU2FtcGxlIjpmYWxzZX0="})
-driver.add_cookie({"name": "_hjSessionUser_445258", "value": "eyJpZCI6ImYyYjI3MjU0LTMwZWYtNTcxZi1iMjBmLTA1OGM0OWMzOGQ2YiIsImNyZWF0ZWQiOjE2NDg1MDU4NDkxNTIsImV4aXN0aW5nIjp0cnVlfQ=="})
-# time for cookie
+driver.get('https://www.gputracker.eu/fr/search/category/1/cartes-graphiques?textualSearch=rtx3080')
+# time pour get
 time.sleep(2)
 
-results = driver.find_element(By.XPATH, '//*[@id="activeOffer"]/div[2]/div[3]/aside/div[1]/div').text
-# results = driver.find_elements(By.XPATH, '//*[@id="activeOffer"]/div[2]/div[3]/aside/div[1]/div')
+driver.add_cookie({"name": "SESSION", "value": "NmNiODBmZGUtOTZkOC00YmFhLWJkYjItNTFiZjRiODgxNjAw"})
+# time pour cookie
+time.sleep(2)
 
-# results = soup.find(id="cookieConsentBanner")
-# cookies = driver.get_cookies()
-# print(cookies)
+recup = driver.find_elements(By.XPATH, '/html/body/div/div[2]/div[2]/div[2]/main/div/div/div[1]/div[2]/div[2]/div/div/div/div/div/a/div')
+ 
+test=[]
+price = driver.find_elements(By.XPATH,'//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[3]/div/div/div[1]/span')
+nom = driver.find_elements(By.XPATH,  '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[2]/h3')
+stok = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[1]/a/div/div[3]/div/div/div[2]')
 
-print(results)
-# driver.quit()   
+link = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
+                                       
 
+allresults = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
+
+# for l in link:
+#     print(l.get_attribute('href'))
+
+# for p in price:
+#      print(p.text)
+#      print(':)')
+
+# for n in nom:
+#     print(n.text)
+#     print(':)')
+# for s in stok:
+#     print(s.text)
+#     print(':)')
+
+# print(len(allresults))
+# print(len(price))
+# print(len(nom))
+# print(len(stok))
+for i in range(len(allresults)):
+    if stok[i].text == 'En stock':
+        test.append(nom[i].text)
+        test.append(price[i].text)
+        test.append(stok[i].text)
+        test.append(link[i].get_attribute('href'))
+
+
+print(test)
+
+for zsdfg in test:
+    print(zsdfg) 
