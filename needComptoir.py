@@ -1,5 +1,6 @@
 import time
 import json
+import xlsxwriter
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -16,8 +17,8 @@ option.binary_location = binary_location
 
 driver = webdriver.Chrome(executable_path=driver_location)
 
-# driver.get('https://neeed.comptoir.co/produits/carte-graphique/rtx-3080/')
-driver.get('https://neeed.comptoir.co/produits/carte-graphique/rtx-3060/')
+driver.get('https://neeed.comptoir.co/produits/carte-graphique/rtx-3080/')
+# driver.get('https://neeed.comptoir.co/produits/carte-graphique/rtx-3060/')
 
 
 time.sleep(2)
@@ -33,8 +34,6 @@ allResult = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[
 allLinkResult = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[4]/a')
 allState = driver.find_elements(By.XPATH, '/html/body/div[2]/div[1]/div[6]/div[4]/div/div/div[4]/a/button')
 
-
-
 for i in range(len(allResult)):
     # allLinkResult[i]
     # allState[i]
@@ -44,10 +43,21 @@ for i in range(len(allResult)):
         test.append(r_model[i].text)
         test.append(r_price[i].text)
         test.append(allLinkResult[i].get_attribute('href'))
-        test.append(allState[i].text)
 
-for ll in test: 
-    print(ll)
+# for ll in test: 
+#     print(ll)
+
+workbook = xlsxwriter.Workbook('arrays.xlsx')
+worksheet = workbook.add_worksheet()
+
+row = 0
+column = 0
+
+for data in (test):
+    worksheet.write(row, column, data)
+    row +=1
+       
+workbook.close()
 
    
 
