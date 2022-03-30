@@ -38,10 +38,10 @@ test=[]
 # ne pas oublier de generaliser l'element
 # 
 #
-price = driver.find_elements(By.XPATH,'//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[3]/div/div/div[1]/span')
-nom = driver.find_elements(By.XPATH,  '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[2]/h3')
-stok = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[1]/a/div/div[3]/div/div/div[2]')
-link = driver.find_elements(By.XPATH, '      //*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
+price = driver.find_elements(By.XPATH,      '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[3]/div/div/div[1]/span')
+stok = driver.find_elements(By.XPATH,       '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[1]/a/div/div[3]/div/div/div[2]')
+nom = driver.find_elements(By.XPATH,        '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[2]/h3')
+link = driver.find_elements(By.XPATH,       '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
 allresults = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
 
 # for l in link:
