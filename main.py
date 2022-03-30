@@ -51,6 +51,7 @@ stock = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/
 # for p in prix:
 #     print (p.text)
 
+<<<<<<< HEAD
 # for n in nom:
 #     print (n.text)
 
@@ -87,3 +88,7 @@ for tttt in test:
 #     outfile.write(json_object))
 # driver.quit()   
 
+=======
+print(results)
+# driver.quit()   
+>>>>>>> origin/ledenicheur
