@@ -4,7 +4,7 @@ import time
 # import validators
 # import re
 # import pandas as pd
-
+import testamazon
 # pip install selenium 
 # Web Driver module
 import json
@@ -64,12 +64,12 @@ stock = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/
 # print(len(link))
 # print(len(nom))
 for i in range(len(stock)):
-    print(stock[i].text)
-    print(len(stock[i].text))
+    # print(stock[i].text)
+    # print(len(stock[i].text))
     if stock[i].text != 'RUPTURE' and (len(stock[i].text) < 9):
         ldlcResult.append(nom[i].text)
         ldlcResult.append(prix[i].text)
-        ldlcResult.append(stock[i].text)
+        # ldlcResult.append(stock[i].text)
         ldlcResult.append(link[i].get_attribute('href'))
 
 # print(len(stock))
@@ -82,25 +82,26 @@ for i in range(len(stock)):
     # print(':)')
 # print(len(ldlcResult))
 
+def app():
+    val = input("Entrez le modèle de RTX: ")
+
+    arrayConcat = [] 
+    if val == '3080':
+        gpuTrackerResult = GPUTracker.gpu_tracker_search()
+    time.sleep(5)
+    needComptoirResult = needComptoir.need_comptoir_search(val)
+    time.sleep(2)
+    amazonResult = testamazon.main(val)
+    time.sleep(2)
+    arrayConcat =  needComptoirResult + gpuTrackerResult + ldlcResult + amazonResult
 
 
-arrayConcat = [] 
 
-gpuTrackerResult = GPUTracker.gpu_tracker_search()
-time.sleep(5)
-needComptoirResult = needComptoir.need_comptoir_search()
-time.sleep(2)
-arrayConcat =  needComptoirResult + gpuTrackerResult + ldlcResult
+    time.sleep(2)
 
-for r in arrayConcat:
-    print(';)')
-    print(r)
+    needComptoir.excel_generator(arrayConcat)
 
-time.sleep(2)
-
-needComptoir.excel_generator(arrayConcat)
-
-time.sleep(10)
+    time.sleep(10)
 # print(gpuTrackerResult)
 # test.append(gpuTrackerResult)
 
@@ -113,6 +114,7 @@ time.sleep(10)
 # item = {
 #     'titre': titre,
 #     'prix':prix
+
 # }
 # json_object = json.dumps(item, indent = 2)
   
@@ -121,3 +123,4 @@ time.sleep(10)
 #     outfile.write(json_object))
 # driver.quit()   
 
+app()

@@ -15,8 +15,7 @@ binary_location = binary_location = "C:\\Program Files\\Google\\Chrome\\Applicat
 option = webdriver.ChromeOptions()
 option.binary_location = binary_location
 
-def need_comptoir_search():
-    val = input("Entrez le modèle de RTX: ")
+def need_comptoir_search(val):
 
     url = "https://neeed.comptoir.co/produits/carte-graphique/rtx-" + val
     # ---------------------------------------------------------------------
