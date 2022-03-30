@@ -15,7 +15,7 @@ binary_location = binary_location = "C:\\Program Files\\Google\\Chrome\\Applicat
 option = webdriver.ChromeOptions()
 option.binary_location = binary_location
 
-val = input("Entrez le modèle de RTX: ")
+val = input("Entrez le modèle de RTX (3060/3060-ti/3070/3080/3090): ")
 
 url = "https://neeed.comptoir.co/produits/carte-graphique/rtx-" + val
 # ---------------------------------------------------------------------
