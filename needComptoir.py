@@ -45,7 +45,7 @@ worksheet = workbook.add_worksheet()
 
 row = 0
 column = 0
-arrayindex = array[0:15]
+# arrayindex = array[0:15]
 
 for data in arrayindex:
     if row == 0:
@@ -63,6 +63,10 @@ for data in arrayindex:
     if column == 3:
         column = 0
         row += 1
+        
+for arr in array:
+    print(arr)
+
 
 workbook.close()
 

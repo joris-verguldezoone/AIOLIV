@@ -30,42 +30,41 @@ driver = webdriver.Chrome(executable_path=driver_location)
 
 driver.get('https://ledenicheur.fr/search?search=rtx3080')
 time.sleep(2)
-driver.add_cookie({"name": "pj:session", "value": "eyJpZCI6IjE3ZDIwYzc5LWIxZDQtNGRjYS1hM2JmLTZlNDA0ZTc4ZTVmMiIsInZpZXdlZEV4cGVyaW1lbnRzIjp7fSwiY29va2llX2NvbnNlbnRfdmVyc2lvbiI6IjQiLCJfZXhwaXJlIjoxOTYzOTE4MTgyNjM1LCJfbWF4QWdlIjozMTUzNjAwMDAwMDB9"})
-driver.add_cookie({"name": "pj:session.sig", "value": "xlV8YcNKiHc0p1FNr74t2A22JPU"})
+driver.add_cookie({"name": "pj:session", "value": "eyJpZCI6IjE5MDI3ZDNiLTJmOTEtNGQ2MS04NTNkLThmZTBmMzI0YThmNSIsInZpZXdlZEV4cGVyaW1lbnRzIjp7fSwiX2V4cGlyZSI6MTk2Mzk5ODQxMTc3NywiX21heEFnZSI6MzE1MzYwMDAwMDAwfQ=="})
+driver.add_cookie({"name": "pj:session.sig", "value": "BHuyVyXMbvvc5MD5Knip0_8HTdY"})
 
 time.sleep(2)
 allElement = driver.find_elements(By.XPATH,'//*[@id="#products"]/ul[1]/li')
-list_names = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul/li/a/div[2]/span')
-list_prices = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul/li/a/div[3]/div/div/div/div/span[2]')
-list_links = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul/li/a')
-                                        
-
-# Le list des links de fonctionne pas - impossible de récupérer le lien
-
 
 test = []
-print(len(allElement))
-print('monvierMtn + allelement')
-print(allElement[47].text)
-print(allElement[50].text)
-print('coucou')
-print('monvierMtn + list_link')
-print(list_links[47].text)
-print(list_links[51].text)
-print('coucou')
+list_names = driver.find_elements(By.XPATH, ' //*[@id="#products"]/ul[1]/li/a/div[2]/span')
+list_prices = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul[1]/li/a/div[3]/div/div/div/div/span[2]')
+list_links = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul[1]/li/a')
+all_results = driver.find_elements(By.XPATH, '//*[@id="#products"]/ul[1]/li')                                
+                                                
+# for p in list_prices:
+#      print(p.text)
+#      print(':)')
+     
+# for n in list_names:
+#     print(n.text)
+#     print(':)')
 
-
+# for l in list_links:
+#     print(l.get_attribute('href'))
+#     print(':)')
+print('list_names')
+print(len(list_names))
+print('list_prices')
+print(len(list_prices))
+print('list_links')
 print(len(list_links))
-for i in range(len(list_links)):
-    test.append(list_prices[i].text)
-    test.append(list_links[i].get_attribute('href'))
-    test.append(list_names[i].text)
-    
-for e in test:
-    print(e)
-
-    # if allState[i].text == 'EN STOCK!':
-# print(list_links)
+print('all_results')
+print(len(all_results))
 
 
+# for n in range(len(all_results)):
+#     test.append(list_links[n].get_attribute('href'))
+#     test.append(list_names[n].text)
+#     test.append(list_prices[n].text)
 
