@@ -1,16 +1,7 @@
+# scrapping
 # il manque la partie "voir plus" pour la selection des produits (seulement les premiers produit de la page)
 
-
-
-
-
-# scrapping
-
-
-
 import time
-import json
-
 
 # pip install selenium 
 # Web Driver module
@@ -21,17 +12,17 @@ from selenium.webdriver import Remote
 from selenium.webdriver import  DesiredCapabilities
 from selenium.webdriver.remote import webelement , command
 
-
-
+# outil d'automatisation de recherche
 driver_location = "C:\\Users\\Frede\\OneDrive\\Bureau\\les repositorys\\AIOLIV\\chromedriver.exe"
+
+# chemin du browser utilisé pour la recherche
 binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
 
 option = webdriver.ChromeOptions()
 option.binary_location = binary_location
 
-
 driver = webdriver.Chrome(executable_path=driver_location)
-
+#adresse a utiliser pour la recherche
 driver.get('https://www.gputracker.eu/fr/search/category/1/cartes-graphiques?textualSearch=rtx3080')
 # time pour get
 time.sleep(2)
@@ -40,16 +31,17 @@ driver.add_cookie({"name": "SESSION", "value": "NmNiODBmZGUtOTZkOC00YmFhLWJkYjIt
 # time pour cookie
 time.sleep(2)
 
-recup = driver.find_elements(By.XPATH, '/html/body/div/div[2]/div[2]/div[2]/main/div/div/div[1]/div[2]/div[2]/div/div/div/div/div/a/div')
- 
+#on defini un tableau vide
 test=[]
+
+# on défini les element a rechercher
+# ne pas oublier de generaliser l'element
+# 
+#
 price = driver.find_elements(By.XPATH,'//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[3]/div/div/div[1]/span')
 nom = driver.find_elements(By.XPATH,  '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div/a/div/div[2]/h3')
 stok = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[1]/a/div/div[3]/div/div/div[2]')
-
-link = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
-                                       
-
+link = driver.find_elements(By.XPATH, '      //*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
 allresults = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div[2]/div/div/div/div/div[2]/div/div/div[1]/a')
 
 # for l in link:
@@ -58,6 +50,7 @@ allresults = driver.find_elements(By.XPATH, '//*[@id="facet-search-results"]/div
 # for p in price:
 #      print(p.text)
 #      print(':)')
+# print(allresults)
 
 # for n in nom:
 #     print(n.text)
