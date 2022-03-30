@@ -18,9 +18,10 @@ from selenium.webdriver.remote import webelement , command
 # from selenium.webdriver.common.touch_actions import TouchActions
 # from selenium.common.exceptions import NoSuchElementException
 
+import needComptoir
+import GPUTracker 
 
-
-driver_location = "C:\\Users\\vergu\\Desktop\\chromeDriver\\chromedriver.exe"
+driver_location = "chromedriver.exe"
 binary_location = "C:\\Program Files (x86)\\Google\Chrome\\Application\\chrome.exe"
 
 option = webdriver.ChromeOptions()
@@ -40,7 +41,7 @@ driver.add_cookie({"name": "_hjSessionUser_445258", "value": "eyJpZCI6ImYyYjI3Mj
 # time for cookie
 time.sleep(2)
 
-test = []
+ldlcResult = []
 prix = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/div[2]/div[2]/ul/li/div[2]/div[4]/div/div')
 nom  = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/div[2]/div[2]/ul/li/div[2]/div[1]/div[1]/h3/a')
 link = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/div[2]/div[2]/ul/li/div[2]/div[1]/div[1]/h3/a') 
@@ -62,19 +63,51 @@ stock = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/
 # print(len(prix))
 # print(len(link))
 # print(len(nom))
-
 for i in range(len(stock)):
-    if stock[i].text == 'EN STOCK':
-        test.append(nom[i].text)
-        test.append(prix[i].text)
-        test.append(stock[i].text)
-        test.append(link[i].get_attribute('href'))
+    print(stock[i].text)
+    print(len(stock[i].text))
+    if stock[i].text != 'RUPTURE' and (len(stock[i].text) < 9):
+        ldlcResult.append(nom[i].text)
+        ldlcResult.append(prix[i].text)
+        ldlcResult.append(stock[i].text)
+        ldlcResult.append(link[i].get_attribute('href'))
 
-print(len(test))
-for tttt in test:
-    print(tttt)
-    print(':)')
+# print(len(stock))
+# temp = 0
+# for tttt in ldlcResult:
+#     print(tttt)
+#     if int(tttt) > 1400:
+#         print(tttt)
+    
+    # print(':)')
+# print(len(ldlcResult))
 
+
+
+arrayConcat = [] 
+
+gpuTrackerResult = GPUTracker.gpu_tracker_search()
+time.sleep(5)
+needComptoirResult = needComptoir.need_comptoir_search()
+time.sleep(2)
+arrayConcat =  needComptoirResult + gpuTrackerResult + ldlcResult
+
+for r in arrayConcat:
+    print(';)')
+    print(r)
+
+time.sleep(2)
+
+needComptoir.excel_generator(arrayConcat)
+
+time.sleep(10)
+# print(gpuTrackerResult)
+# test.append(gpuTrackerResult)
+
+# print('qzseslfkhjkqzlkefjlkjqledkjlkjeldkjlkjzezf')
+# for t in test: 
+#     print(t)
+# print('qzseslfkhjkqzlkefjlkjqledkjlkjeldkjlkjzezf')
 
 # print(prix)
 # item = {
