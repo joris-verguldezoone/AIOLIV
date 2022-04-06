@@ -13,7 +13,7 @@ from selenium.webdriver import  DesiredCapabilities
 from selenium.webdriver.remote import webelement , command
 
 # outil d'automatisation de recherche
-driver_location = "C:\\Users\\Frede\\OneDrive\\Bureau\\les repositorys\\AIOLIV\\chromedriver.exe"
+driver_location = "chromedriver.exe"
 
 # chemin du browser utilisé pour la recherche
 binary_location = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"

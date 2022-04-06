@@ -4,10 +4,10 @@ import time
 # import validators
 # import re
 # import pandas as pd
-import testamazon
 # pip install selenium 
 # Web Driver module
 import json
+from traceback import print_tb
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -17,9 +17,9 @@ from selenium.webdriver.remote import webelement , command
 # from selenium.webdriver.common.action_chains import ActionChains
 # from selenium.webdriver.common.touch_actions import TouchActions
 # from selenium.common.exceptions import NoSuchElementException
-
+import testamazon
 import needComptoir
-import GPUTracker 
+import GPUTracker
 
 driver_location = "chromedriver.exe"
 binary_location = "C:\\Program Files (x86)\\Google\Chrome\\Application\\chrome.exe"
@@ -47,22 +47,7 @@ nom  = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/d
 link = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/div[2]/div[2]/ul/li/div[2]/div[1]/div[1]/h3/a') 
 stock = driver.find_elements(By.XPATH, '/html/body/div[4]/div/div[3]/div[1]/div/div[2]/div[2]/ul/li/div[2]/div[3]/div/div[2]/div/span')                             
 
-# for s in stock:
-#     print (s.text)
-# for p in prix:
-#     print (p.text)
 
-# for n in nom:
-#     print (n.text)
-
-# for l in link:
-#     print(l.get_attribute('href'))
-
-
-# print(len(stock))
-# print(len(prix))
-# print(len(link))
-# print(len(nom))
 for i in range(len(stock)):
     # print(stock[i].text)
     # print(len(stock[i].text))
@@ -72,15 +57,49 @@ for i in range(len(stock)):
         # ldlcResult.append(stock[i].text)
         ldlcResult.append(link[i].get_attribute('href'))
 
-# print(len(stock))
-# temp = 0
-# for tttt in ldlcResult:
-#     print(tttt)
-#     if int(tttt) > 1400:
-#         print(tttt)
+print(len(stock))
+i = 1
+j = 0
+arr = []
+for product in ldlcResult: # fonctionne pour un tableau de 3 element par case dont le deuxieme est le prix 
+    i = i + 1
+    if i == 3:
+        i = 0
+        string = product.replace(' ', '')
+        price = string.replace('€', '.')  
+        print(float(price))
+        arr.append(float(price))
+
+def conversionDollarToEuro(args):
+    arr = []
+    coefConversion = 1.09
+    for value in args:
+        print('conversion')
+        print(value)
+        print(value*coefConversion)
+        print('conversion')
+        arr.append(value*coefConversion)
+    return arr
+
+
+def bestPrice(arr): 
+    temp = 0
+    for price in arr:
+        if temp == 0:
+            temp = price
+        if price < temp:
+            temp = price
+    # print(temp) # c'est le meilleur prix de ldlc
+    return temp
+bestPriceLdcl = bestPrice(arr)
+print(bestPriceLdcl)
+    # if int(tttt) > 1400:
+    #     print(tttt)
     
+print('oui monsieur')
     # print(':)')
-# print(len(ldlcResult))
+print(len(ldlcResult))
+
 
 def app():
     val = input("Entrez le modèle de RTX: ")
@@ -88,10 +107,42 @@ def app():
     arrayConcat = [] 
     if val == '3080':
         gpuTrackerResult = GPUTracker.gpu_tracker_search()
-    time.sleep(5)
+    # time.sleep(5)
     needComptoirResult = needComptoir.need_comptoir_search(val)
-    time.sleep(2)
+    # time.sleep(2)
     amazonResult = testamazon.main(val)
+    i = 1
+    j = 0
+    arrayAmazon = []
+    for product in amazonResult: # fonctionne pour un tableau de 3 element par case dont le deuxieme est le prix 
+        i = i + 1
+        if i == 3:
+            i = 0
+            # string = product.replace(' ', '')
+            print(product)
+            if not (product is None):
+                noDollar = product.replace('$', '')  
+                price = noDollar.replace(',', '')  
+            # price = noDollar.replace('$', '')  
+                arrayAmazon.append(float(price))
+                print(price)
+
+    time.sleep(2)
+    # zor = []
+    # coefConversion = 1.09
+    # for value in arrayAmazon:
+    #     print('conversion')
+    #     print(value)
+    #     print(value*coefConversion)
+    #     print('conversion')
+    #     zor.append(value*coefConversion)
+
+    arrayAmazonEuro = conversionDollarToEuro(arrayAmazon)
+    bestAmazonPrice = bestPrice(arrayAmazonEuro)
+
+    print('Amazon Price')
+    print(bestAmazonPrice)
+    print('Amazon Price')
     time.sleep(2)
     arrayConcat =  needComptoirResult + gpuTrackerResult + ldlcResult + amazonResult
 
