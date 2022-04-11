@@ -1,5 +1,7 @@
 # scrapping
+
 # from datetime import datetime, date, timedelta
+from asyncio import sleep
 import time
 # import validators
 # import re
@@ -91,25 +93,43 @@ def bestPrice(arr):
             temp = price
     # print(temp) # c'est le meilleur prix de ldlc
     return temp
-bestPriceLdcl = bestPrice(arr)
-print(bestPriceLdcl)
-    # if int(tttt) > 1400:
-    #     print(tttt)
-    
-print('oui monsieur')
-    # print(':)')
-print(len(ldlcResult))
 
 
 def app():
     val = input("Entrez le modèle de RTX: ")
-
+    gpuTrackerResult = "unUsed"
+    bestPriceGpuTracker = "unUsed" 
     arrayConcat = [] 
     if val == '3080':
         gpuTrackerResult = GPUTracker.gpu_tracker_search()
-    # time.sleep(5)
+        bestPriceGPUTracker = bestPrice(gpuTrackerResult)
+
+    # try:
+    #     gpuTrackerResult, bestPriceGPUTracker
+    # except NameError:
+    #     print('undefined GPUTracker result and best price')
+    # else:
+    #     print("sure, it was defined.")
+    
     needComptoirResult = needComptoir.need_comptoir_search(val)
-    # time.sleep(2)
+    # sleep(15)
+    i = 1
+    converted_nc_product = []
+    # sleep(5)
+    for nC_product in needComptoirResult: # fonctionne pour un tableau de 3 element par case dont le deuxieme est le prix 
+        i = i + 1
+        if i == 3:
+            i = 0
+            string = nC_product.replace(',', '.')
+            var = string.replace(' ', '')
+            price = var.replace('€', '') 
+            print(price) 
+            # print(float(price))
+            converted_nc_product.append(price)
+    
+    # sleep(5)
+    bestPrice_nc_product = bestPrice(converted_nc_product)
+    
     amazonResult = testamazon.main(val)
     i = 1
     j = 0
@@ -118,41 +138,40 @@ def app():
         i = i + 1
         if i == 3:
             i = 0
-            # string = product.replace(' ', '')
             print(product)
             if not (product is None):
                 noDollar = product.replace('$', '')  
                 price = noDollar.replace(',', '')  
-            # price = noDollar.replace('$', '')  
                 arrayAmazon.append(float(price))
                 print(price)
 
-    time.sleep(2)
-    # zor = []
-    # coefConversion = 1.09
-    # for value in arrayAmazon:
-    #     print('conversion')
-    #     print(value)
-    #     print(value*coefConversion)
-    #     print('conversion')
-    #     zor.append(value*coefConversion)
+    # sleep(2)
 
     arrayAmazonEuro = conversionDollarToEuro(arrayAmazon)
     bestAmazonPrice = bestPrice(arrayAmazonEuro)
+    bestPriceLdlc = bestPrice(arr)
 
     print('Amazon Price')
     print(bestAmazonPrice)
     print('Amazon Price')
-    time.sleep(2)
+    print('bestPrice_nc_product')
+    print(bestPrice_nc_product)
+    print('bestPrice_nc_product')
+    print('bestPriceGPUTracker')
+    print(bestPriceGPUTracker)
+    print('bestPriceGPUTracker')
+    print("bestPriceLdlc")
+    print(bestPriceLdlc)
+    print("bestPriceLdlc")
+    # sleep(2)
+    bestPriceTab = {'neeedComptoir': bestPrice_nc_product, 'gpuTracker' : bestPriceGPUTracker, 'ldlc' : bestPriceLdlc, "amazon": bestAmazonPrice,}
     arrayConcat =  needComptoirResult + gpuTrackerResult + ldlcResult + amazonResult
 
+    # sleep(2)
 
+    needComptoir.excel_generator(arrayConcat,bestPriceTab)
 
-    time.sleep(2)
-
-    needComptoir.excel_generator(arrayConcat)
-
-    time.sleep(10)
+# sleep(10)
 # print(gpuTrackerResult)
 # test.append(gpuTrackerResult)
 
